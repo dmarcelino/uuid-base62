@@ -46,4 +46,13 @@ describe('uuid-base62', function () {
       assert.equal(res, uuid);
     });
   });
+  
+  describe('v1', function () {
+    it('should generate a unique id without any params', function () {
+      var res = uuidBase62.v1();
+      assert(res);
+      assert.equal(typeof res, 'string');
+      assert(res.length <= 22);
+    });
+  });
 });

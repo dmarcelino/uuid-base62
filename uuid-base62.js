@@ -24,6 +24,24 @@ module.exports.v4 = function v4() {
   return self.encode(id);
 };
 
+
+/**
+ * 
+ */
+module.exports.v1 = function v1() {
+  var self = this;
+  var args = Array.prototype.slice.call(arguments);
+
+  if (!args[1]) {
+    // make sure we use a buffer to avoid getting an uuid with dashes
+    args[1] = new Buffer(16);
+  }
+
+  var id = uuid.v1.apply(self, args);
+  return self.encode(id);
+};
+
+
 /**
  * 
  */
