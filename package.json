@@ -1,0 +1,34 @@
+{
+  "name": "uuid-base62",
+  "version": "0.0.1",
+  "description": "Base62 non-sequential url-friendly UUID generator (RFC4122)",
+  "main": "uuid-base62.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmarcelino/uuid-base62.git"
+  },
+  "keywords": [
+    "uuid",
+    "base62",
+    "unique",
+    "id",
+    "url-friendly",
+    "generator"
+  ],
+  "author": "Dario Marcelino <dario@appscot.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dmarcelino/uuid-base62/issues"
+  },
+  "homepage": "https://github.com/dmarcelino/uuid-base62#readme",
+  "dependencies": {
+    "b62": "0.0.1",
+    "node-uuid": "^1.4.3"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.5"
+  }
+}
