@@ -1,7 +1,7 @@
 {
   "name": "uuid-base62",
   "version": "0.0.1",
-  "description": "Base62 non-sequential url-friendly UUID generator (RFC4122)",
+  "description": "Base62 non-sequential url-safe UUID generator (RFC4122)",
   "main": "uuid-base62.js",
   "scripts": {
     "test": "mocha test"
