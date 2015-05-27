@@ -1,8 +1,8 @@
-# uuid-base62
-Base62 non-sequential url-friendly UUID generator (RFC4122)
-
 [![npm version](https://badge.fury.io/js/uuid-base62.svg)](http://badge.fury.io/js/uuid-base62)
 [![Build Status](https://travis-ci.org/dmarcelino/uuid-base62.svg?branch=master)](https://travis-ci.org/dmarcelino/uuid-base62)
+
+# uuid-base62
+Base62 non-sequential url-friendly UUID generator (RFC4122)
 
 ## Overview
 
