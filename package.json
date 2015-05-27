@@ -15,8 +15,10 @@
     "base62",
     "unique",
     "id",
+    "identifier",
     "url-friendly",
-    "generator"
+    "generator",
+    "base64"
   ],
   "author": "Dario Marcelino <dario@appscot.com>",
   "license": "MIT",
@@ -25,7 +27,7 @@
   },
   "homepage": "https://github.com/dmarcelino/uuid-base62#readme",
   "dependencies": {
-    "b62": "0.0.1",
+    "b62": "^0.0.1",
     "node-uuid": "^1.4.3"
   },
   "devDependencies": {
