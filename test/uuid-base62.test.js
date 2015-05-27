@@ -55,4 +55,24 @@ describe('uuid-base62', function () {
       assert(res.length <= 22);
     });
   });
+  
+  describe('other bases', function () {
+    uuidBase62.customBase = new uuidBase62.b62("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_");
+    it('should generate a unique id without any params in base64', function () {
+      var res = uuidBase62.v4();
+      assert(res);
+      assert.equal(typeof res, 'string');
+      assert(res.length <= 22);
+    });
+
+    it('should encode and decode a uuid in Base64', function () {
+      var uuid = '72be7291-fbf6-400f-87c4-455e23d01cd5';
+
+      var uuidB64 = uuidBase62.encode(uuid);
+      assert.equal(uuidB64, '1OLDah-_p03Uv4hlUzQ1Pl');
+      
+      var res = uuidBase62.decode(uuidB64);
+      assert.equal(res, uuid);
+    });
+  });
 });

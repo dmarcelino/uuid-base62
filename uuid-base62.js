@@ -7,6 +7,7 @@ var b62 = require('b62');
 // expose node-uuid and base62 for convenience
 module.exports.uuid = uuid;
 module.exports.b62 = b62;
+module.exports.customBase = b62;
 
 /**
  * 
@@ -52,7 +53,7 @@ module.exports.encode = function encode(input, encoding) {
     // remove the dashes to save some space
     input = input.replace(/-/g, '');
   }
-  return b62.encode(input, encoding);
+  return this.customBase.encode(input, encoding);
 };
 
 /**
@@ -60,7 +61,7 @@ module.exports.encode = function encode(input, encoding) {
  */
 module.exports.decode = function decode(b62Str, encoding) {
   encoding = encoding || 'hex';
-  var res = b62.decode(b62Str, encoding);
+  var res = this.customBase.decode(b62Str, encoding);
   
   // re-add the dashes so the result looks like an uuid
   var resArray = res.split('');
