@@ -2,13 +2,15 @@
 
 // dependencies
 var uuid = require('node-uuid');
-var b62 = require('b62');
+var baseX = require('base-x');
+var base62 = baseX('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
 
-// expose node-uuid and base62 for convenience
+// expose node-uuid and baseX for convenience
 module.exports.uuid = uuid;
-module.exports.b62 = b62;
-module.exports.customBase = b62;
+module.exports.baseX = baseX;
+module.exports.customBase = base62;
 module.exports.length = 22;
+module.exports.uuidLength = 32;
 
 /**
  * v4
@@ -52,9 +54,9 @@ module.exports.encode = function encode(input, encoding) {
   
   if (typeof input === 'string') {
     // remove the dashes to save some space
-    input = input.replace(/-/g, '');
+    input = new Buffer(input.replace(/-/g, ''), encoding);
   }
-  return padLeft(this.customBase.encode(input, encoding), module.exports.length);
+  return ensureLength(this.customBase.encode(input), module.exports.length);
 };
 
 /**
@@ -62,7 +64,7 @@ module.exports.encode = function encode(input, encoding) {
  */
 module.exports.decode = function decode(b62Str, encoding) {
   encoding = encoding || 'hex';
-  var res = padLeft(this.customBase.decode(b62Str, encoding), 32);
+  var res = ensureLength(new Buffer(this.customBase.decode(b62Str)).toString(encoding), module.exports.uuidLength);
   
   // re-add the dashes so the result looks like an uuid
   var resArray = res.split('');
@@ -72,6 +74,22 @@ module.exports.decode = function decode(b62Str, encoding) {
   res = resArray.join('');
 
   return res;
+};
+
+/**
+ * ensureLength
+ * 
+ * @api private
+ */
+function ensureLength(str, maxLen){
+  str = str + "";
+  if(str.length < maxLen){
+    return padLeft(str, maxLen);
+  }
+  else if (str.length > maxLen){
+    return trimLeft(str, maxLen);
+  }
+  return str;
 };
 
 
@@ -87,4 +105,18 @@ function padLeft(str, padding){
     pad += '0';
   }
   return pad + str;
+};
+
+/**
+ * trimLeft
+ * 
+ * @api private
+ */
+function trimLeft(str, maxLen){
+  str = str + "";
+  var trim = 0;
+  while(str[trim] === '0' && (str.length - trim) > maxLen){
+    trim++;
+  }
+  return str.slice(trim);
 };
