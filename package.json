@@ -1,6 +1,6 @@
 {
   "name": "uuid-base62",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Base62 non-sequential url-safe UUID generator (RFC4122)",
   "main": "uuid-base62.js",
   "scripts": {
@@ -12,6 +12,7 @@
   },
   "keywords": [
     "uuid",
+    "uid",
     "base62",
     "unique",
     "id",
@@ -31,6 +32,6 @@
     "node-uuid": "^1.4.3"
   },
   "devDependencies": {
-    "mocha": "^2.2.5"
+    "mocha": "*"
   }
 }
