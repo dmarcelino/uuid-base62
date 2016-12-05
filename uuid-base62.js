@@ -49,23 +49,40 @@ module.exports.v1 = function v1() {
 /**
  * encode
  */
-module.exports.encode = function encode(input, encoding) {
-  encoding = encoding || 'hex';
-  
+module.exports.encode = function encode(input, options) {
+  options = options || {};
+
+  // Make compatible with previous API.
+  options.encoding = typeof options === 'string' ?
+    options
+  : options.encoding || 'hex';
+
+  options.base = options.base || this.customBase;
+  options.length = options.length || module.exports.length;
+
   if (typeof input === 'string') {
     // remove the dashes to save some space
-    input = new Buffer(input.replace(/-/g, ''), encoding);
+    input = new Buffer(input.replace(/-/g, ''), options.encoding);
   }
-  return ensureLength(this.customBase.encode(input), module.exports.length);
+  return ensureLength(options.base.encode(input), options.length);
 };
 
 /**
  * decode
  */
-module.exports.decode = function decode(b62Str, encoding) {
-  encoding = encoding || 'hex';
-  var res = ensureLength(new Buffer(this.customBase.decode(b62Str)).toString(encoding), module.exports.uuidLength);
-  
+module.exports.decode = function decode(b62Str, options) {
+  options = options || {};
+
+  // Make compatible with previous API.
+  options.encoding = typeof options === 'string' ?
+    options
+  : options.encoding || 'hex';
+
+  options.base = options.base || this.customBase;
+  options.length = options.length || module.exports.uuidLength;
+
+  var res = ensureLength(new Buffer(options.base.decode(b62Str)).toString(options.encoding), options.length);
+
   // re-add the dashes so the result looks like an uuid
   var resArray = res.split('');
   [8, 13, 18, 23].forEach(function(idx){
@@ -78,7 +95,7 @@ module.exports.decode = function decode(b62Str, encoding) {
 
 /**
  * ensureLength
- * 
+ *
  * @api private
  */
 function ensureLength(str, maxLen){
@@ -95,7 +112,7 @@ function ensureLength(str, maxLen){
 
 /**
  * padLeft
- * 
+ *
  * @api private
  */
 function padLeft(str, padding){
@@ -109,7 +126,7 @@ function padLeft(str, padding){
 
 /**
  * trimLeft
- * 
+ *
  * @api private
  */
 function trimLeft(str, maxLen){

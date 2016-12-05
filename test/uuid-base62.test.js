@@ -46,7 +46,7 @@ describe('uuid-base62', function () {
       assert.equal(res, uuid);
     });
   });
-  
+
   describe('v1', function () {
     it('should generate a unique id without any params', function () {
       var res = uuidBase62.v1();
@@ -55,28 +55,44 @@ describe('uuid-base62', function () {
       assert.equal(res.length, 22);
     });
   });
-  
+
   describe('encode / decode', function () {
     var fixtures = {
       '0000000000000000000000': '00000000-0000-0000-0000-000000000000',
       '0cBaidlJ84Ggc5JA7IYCgv': '06ad547f-fe02-477b-9473-f7977e4d5e17',
       '4vqyd6OoARXqj9nRUNhtLQ': '941532a0-6be1-443a-a9d5-d57bdf180a52',
-      '5FY8KwTsQaUJ2KzHJGetfE': 'ba86b8f0-6fdf-4944-87a0-8a491a19490e',      
+      '5FY8KwTsQaUJ2KzHJGetfE': 'ba86b8f0-6fdf-4944-87a0-8a491a19490e',
       '7N42dgm5tFLK9N8MT7fHC7': 'ffffffff-ffff-ffff-ffff-ffffffffffff'
     };
-    
+
     Object.keys(fixtures).forEach(function(key){
       it('should properly encode ' + fixtures[key], function () {
         assert.equal(uuidBase62.encode(fixtures[key]), key);
       });
-      
+
       it('should properly decode ' + key, function () {
         assert.equal(uuidBase62.decode(key), fixtures[key]);
       });
     });
+
+    it('should properly encode/decode with a different encoding', function () {
+      assert.equal(uuidBase62.encode('06ad547f-fe02-477b-9473-f7977e4d5e17', {encoding: 'ascii'}), 'bqP6JWAS4t1lWczmmHbPIhwMSO27BW1qKdDPx2mTN5l');
+      assert.equal(uuidBase62.decode('bqP6JWAS4t1lWczmmHbPIhwMSO27BW1qKdDPx2mTN5l', {encoding: 'ascii'}), '06ad547f-fe02-477b-9473-f7977e4d5e17');
+    });
   });
-  
+
   describe('other bases', function () {
+    it('should accept a custom base as an option', function () {
+      var customBase = new uuidBase62.baseX("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_");
+      var uuid = '72be7291-fbf6-400f-87c4-455e23d01cd5';
+
+      var uuidB64 = uuidBase62.encode(uuid, {base: customBase});
+      assert.equal(uuidB64, '1OLDah-_p03Uv4hlUzQ1Pl');
+
+      var res = uuidBase62.decode(uuidB64, {base: customBase});
+      assert.equal(res, uuid);
+    });
+
     it('should generate a unique id without any params in base64', function () {
       uuidBase62.customBase = new uuidBase62.baseX("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_");
       var res = uuidBase62.v4();
@@ -91,7 +107,7 @@ describe('uuid-base62', function () {
 
       var uuidB64 = uuidBase62.encode(uuid);
       assert.equal(uuidB64, '1OLDah-_p03Uv4hlUzQ1Pl');
-      
+
       var res = uuidBase62.decode(uuidB64);
       assert.equal(res, uuid);
     });
