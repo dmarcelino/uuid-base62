@@ -28,8 +28,8 @@
   },
   "homepage": "https://github.com/dmarcelino/uuid-base62#readme",
   "dependencies": {
-    "base-x": "^1.0.0",
-    "node-uuid": "^1.4.3"
+    "base-x": "^3.0.0",
+    "node-uuid": "^1.4.7"
   },
   "devDependencies": {
     "mocha": "*"
