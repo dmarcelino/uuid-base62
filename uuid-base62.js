@@ -1,11 +1,11 @@
 'use strict';
 
 // dependencies
-var uuid = require('node-uuid');
+var uuid = require('uuid');
 var baseX = require('base-x');
 var base62 = baseX('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
 
-// expose node-uuid and baseX for convenience
+// expose uuid and baseX for convenience
 module.exports.uuid = uuid;
 module.exports.baseX = baseX;
 module.exports.customBase = base62;
