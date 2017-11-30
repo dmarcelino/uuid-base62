@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dmarcelino/uuid-base62.git"
+    "url": "git+https://github.com/teabore/uuid-base62.git"
   },
   "keywords": [
     "uuid",
@@ -28,8 +28,8 @@
   },
   "homepage": "https://github.com/dmarcelino/uuid-base62#readme",
   "dependencies": {
-    "base-x": "^1.0.0",
-    "node-uuid": "^1.4.3"
+    "base-x": "^3.0.2",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "mocha": "*"
