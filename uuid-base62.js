@@ -1,12 +1,14 @@
 'use strict';
 
 // dependencies
-var uuid = require('node-uuid');
+var uuidV1 = require('uuid/v1')
+var uuidV4 = require('uuid/v4');
 var baseX = require('base-x');
 var base62 = baseX('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
 
 // expose node-uuid and baseX for convenience
-module.exports.uuid = uuid;
+module.exports.uuidV1 = uuidV1;
+module.exports.uuidV4 = uuidV4;
 module.exports.baseX = baseX;
 module.exports.customBase = base62;
 module.exports.length = 22;
@@ -24,7 +26,7 @@ module.exports.v4 = function v4() {
     args[1] = new Buffer(16);
   }
 
-  var id = uuid.v4.apply(self, args);
+  var id = uuidV4.apply(self, args);
   return self.encode(id);
 };
 
@@ -41,7 +43,7 @@ module.exports.v1 = function v1() {
     args[1] = new Buffer(16);
   }
 
-  var id = uuid.v1.apply(self, args);
+  var id = uuidV1.apply(self, args);
   return self.encode(id);
 };
 
